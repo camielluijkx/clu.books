@@ -2,7 +2,7 @@
 using System.Linq;
 using Google.Apis.Books.v1.Data;
 
-namespace clu.books.library
+namespace clu.books.library.model
 {
     public class Books : List<Book>
     {

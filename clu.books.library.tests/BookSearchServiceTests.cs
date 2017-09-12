@@ -1,6 +1,9 @@
 ﻿using Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using clu.books.library.model;
+using clu.books.library.search;
+using clu.books.library.settings;
 
 namespace clu.books.library.tests
 {

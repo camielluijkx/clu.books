@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace clu.books.library
+namespace clu.books.library.converters
 {
     internal static class StringToEnumConverter
     {

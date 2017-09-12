@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace clu.books.library
+namespace clu.books.library.settings
 {
     [Serializable]
     internal class AppSettingNotFoundException : Exception

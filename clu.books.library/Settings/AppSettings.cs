@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Configuration;
 
-namespace clu.books.library
+namespace clu.books.library.settings
 {
     public static class AppSettings
     {

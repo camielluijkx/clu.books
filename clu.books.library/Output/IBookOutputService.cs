@@ -1,4 +1,6 @@
-﻿namespace clu.books.library
+﻿using clu.books.library.model;
+
+namespace clu.books.library.output
 {
     public interface IBookOutputService
     {

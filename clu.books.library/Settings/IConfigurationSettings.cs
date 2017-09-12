@@ -1,4 +1,4 @@
-﻿namespace clu.books.library
+﻿namespace clu.books.library.settings
 {
     public interface IConfigurationSettings
     {

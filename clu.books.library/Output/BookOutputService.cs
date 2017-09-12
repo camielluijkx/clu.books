@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using clu.books.library.model;
+using clu.books.library.settings;
 
-namespace clu.books.library
+namespace clu.books.library.output
 {
     public class BookOutputService : IBookOutputService
     {

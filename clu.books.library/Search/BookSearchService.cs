@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using clu.books.library.converters;
+using clu.books.library.extensions;
+using clu.books.library.model;
+using clu.books.library.settings;
 using Google.Apis.Books.v1;
 using Google.Apis.Books.v1.Data;
 using Google.Apis.Services;
 
-namespace clu.books.library
+namespace clu.books.library.search
 {
     public class BookSearchService : IBookSearchService
     {
@@ -14,7 +18,7 @@ namespace clu.books.library
         private const int startIndex = 0;
         private readonly int maxResults;
 
-        private string[] preferredLanguages;
+        private readonly string[] preferredLanguages;
 
         private readonly VolumesResource.ListRequest.OrderByEnum orderBy;
 

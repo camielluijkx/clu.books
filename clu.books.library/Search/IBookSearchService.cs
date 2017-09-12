@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using clu.books.library.model;
 
-namespace clu.books.library
+namespace clu.books.library.search
 {
     public interface IBookSearchService
     {

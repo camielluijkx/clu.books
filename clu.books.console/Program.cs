@@ -1,6 +1,9 @@
-﻿using clu.books.library;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using clu.books.library.model;
+using clu.books.library.output;
+using clu.books.library.search;
+using clu.books.library.settings;
 
 namespace clu.books.console
 {

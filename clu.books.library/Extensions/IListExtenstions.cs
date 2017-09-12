@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace clu.books.library
+namespace clu.books.library.extensions
 {
-    public static class IListExt
+    public static class IListExtenstions
     {
         public static int RemoveAll<T>(this IList<T> list, Predicate<T> match)
         {
