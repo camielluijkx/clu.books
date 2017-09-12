@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
@@ -22,12 +23,11 @@ namespace clu.books.library.api
 
         public virtual HttpResponseMessage Get()
         {
-            string apiName = exposingAssembly.GetName().Name;
-            string environmentName = ConfigurationManager.AppSettings["EnvironmentName"] ?? "???";
-            string releaseNumber = ConfigurationManager.AppSettings["ReleaseNumber"] ?? "???";
+            string applicationName = exposingAssembly.GetName().Name;
+            string environmentName = Environment.MachineName;
             string buildnumber = exposingAssembly.GetName().Version.ToString();
 
-            string version = string.Format("{3} {0} - Build {1} - Release: {2} ", environmentName, buildnumber, releaseNumber, apiName);
+            string version = $"{applicationName} {environmentName} - Build {buildnumber}";
 
             return Request.CreateResponse(HttpStatusCode.OK, version);
         }
