@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/clu.books.console/bin/Debug
+/clu.books.console/obj/Debug
+/clu.books.library/bin/Debug
+/clu.books.library/obj/Debug
+/clu.books.library.tests/bin/Debug
+/clu.books.library.tests/obj/Debug
+/packages
+/clu.books.v3.ncrunchsolution
+/results.txt
+/notes.txt
