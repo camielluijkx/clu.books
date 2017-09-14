@@ -1,4 +1,6 @@
-﻿namespace clu.books.library.Mapping
+﻿using System.Linq.Expressions;
+
+namespace clu.books.library.Mapping
 {
     public static class ModelToDtoMapper
     {
@@ -6,6 +8,12 @@
         {
             return new dto.Book
             {
+                Index = value.Index,
+                Author = value.Author,
+                Title = value.Title,
+                PublishedDate = value.PublishedDate,
+                LanguageCode = value.LanguageCode,
+
                 Description = value.ToString()
             };
         }

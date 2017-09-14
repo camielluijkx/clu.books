@@ -8,6 +8,18 @@ namespace clu.books.library.model
 
         private readonly Volume volume;
 
+        public int Index => index;
+
+        public string Author => volume?.VolumeInfo?.Authors != null
+            ? string.Join(", ", volume.VolumeInfo?.Authors)
+            : "UNDEFINED";
+
+        public string Title => volume?.VolumeInfo?.Title;
+
+        public string PublishedDate => volume?.VolumeInfo?.PublishedDate;
+
+        public string LanguageCode => volume?.VolumeInfo?.Language.ToUpper();
+
         public Book(Volume volume, int index = 1)
         {
             this.volume = volume;
@@ -16,15 +28,7 @@ namespace clu.books.library.model
 
         public override string ToString()
         {
-            string title = volume?.VolumeInfo?.Title;
-            string author = volume?.VolumeInfo?.Authors != null ? string.Join(
-                ", ", volume.VolumeInfo?.Authors) : "UNDEFINED";
-            string publishedDate = volume?.VolumeInfo?.PublishedDate;
-            string languageCode = volume?.VolumeInfo?.Language.ToUpper();
-
-            string information = $"{index}) {title} - {author} - {publishedDate} ({languageCode})";
-
-            return information;
+            return $"{index}) {Title} - {Author} - {PublishedDate} ({LanguageCode})";
         }
     }
 }
