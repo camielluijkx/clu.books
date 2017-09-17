@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using clu.books.library.model;
+using clu.books.library.dto;
 using clu.books.library.settings;
 
 namespace clu.books.library.output
@@ -59,7 +59,7 @@ namespace clu.books.library.output
                 return;
             }
 
-            string bookInformation = book.ToString();
+            string bookInformation = book.Information;
 
             LogToConsole(bookInformation);
             LogToFile(bookInformation);

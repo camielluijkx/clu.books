@@ -5,6 +5,7 @@ using clu.books.library.converters;
 using clu.books.library.extensions;
 using clu.books.library.model;
 using clu.books.library.settings;
+using clu.books.library.Search;
 using Google.Apis.Books.v1;
 using Google.Apis.Books.v1.Data;
 using Google.Apis.Services;
@@ -24,7 +25,9 @@ namespace clu.books.library.search
 
         private readonly BooksService bookService;
 
-        public BookSearchService(IConfigurationSettings configurationSettings)
+        private readonly IBookSearchMapper bookSearchMapper;
+
+        public BookSearchService(IConfigurationSettings configurationSettings, IBookSearchMapper bookSearchMapper)
         {
             apiKey = configurationSettings.GoogleBooksPublicApiKey;
 
@@ -41,16 +44,9 @@ namespace clu.books.library.search
                     ApiKey = apiKey,
                     ApplicationName = "Books"
                 });
-        }
 
-        private enum SearchOption
-        {
-            ByAnything,
-            ByAuthor,
-            ByIsn,
-            ByTitle
+            this.bookSearchMapper = bookSearchMapper;
         }
-
 
         private async Task<Volumes> SearchVolumesAsync(SearchOption searchOption, string searchValue)
         {
@@ -83,37 +79,30 @@ namespace clu.books.library.search
             return volumes;
         }
 
-        public async Task<Books> SearchBooksByAnythingAsync(string anything)
+        public async Task<BookSearchResponse> SearchBookAsync(BookSearchRequest searchRequest)
         {
-            Volumes volumes = await SearchVolumesAsync(SearchOption.ByAnything, anything);
-            return new Books(volumes?.Items?.ToList());
+            string searchTerm = searchRequest.SearchTerm;
+            SearchOption searchOption = searchRequest.SearchOption;
+
+            Volumes volumes = await SearchVolumesAsync(searchOption, searchTerm);
+            Book book = new Book(volumes?.Items?.FirstOrDefault());
+
+            BookSearchResponse searchResponse = new BookSearchResponse(
+                bookSearchMapper.Map<dto.Book>(book));
+            return searchResponse;
         }
 
-        public async Task<Books> SearchBooksByAuthorAsync(string author)
+        public async Task<BooksSearchResponse> SearchBooksAsync(BooksSearchRequest searchRequest)
         {
-            Volumes volumes = await SearchVolumesAsync(SearchOption.ByAuthor, author);
-            return new Books(volumes?.Items?.ToList());
-        }
+            string searchTerm = searchRequest.SearchTerm;
+            SearchOption searchOption = searchRequest.SearchOption;
 
-        public async Task<Book> SearchBookByIsbnAsync(string isbn)
-        {
-            // [TODO] validate with regex?
-            Volumes volumes = await SearchVolumesAsync(SearchOption.ByIsn, isbn);
-            Volume volume = volumes?.Items?.FirstOrDefault();
-            return new Book(volume);
-        }
+            Volumes volumes = await SearchVolumesAsync(searchOption, searchTerm);
+            Books books = new Books(volumes?.Items?.ToList());
 
-        public async Task<Books> SearchBooksByIsbnAsync(string isbn)
-        {
-            // [TODO] validate with regex?
-            Volumes volumes = await SearchVolumesAsync(SearchOption.ByIsn, isbn);
-            return new Books(volumes?.Items?.ToList());
-        }
-
-        public async Task<Books> SearchBooksByTitleAsync(string title)
-        {
-            Volumes volumes = await SearchVolumesAsync(SearchOption.ByTitle, title);
-            return new Books(volumes?.Items?.ToList());
+            BooksSearchResponse searchResponse = new BooksSearchResponse(
+                bookSearchMapper.Map<dto.Books>(books));
+            return searchResponse;
         }
     }
 }

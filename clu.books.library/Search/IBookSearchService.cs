@@ -1,18 +1,12 @@
 ﻿using System.Threading.Tasks;
-using clu.books.library.model;
+using clu.books.library.Search;
 
 namespace clu.books.library.search
 {
     public interface IBookSearchService
     {
-        Task<Books> SearchBooksByAnythingAsync(string anything);
+        Task<BookSearchResponse> SearchBookAsync(BookSearchRequest searchRequest);
 
-        Task<Books> SearchBooksByAuthorAsync(string author);
-
-        Task<Book> SearchBookByIsbnAsync(string isbn);
-
-        Task<Books> SearchBooksByIsbnAsync(string isbn);
-
-        Task<Books> SearchBooksByTitleAsync(string title);
+        Task<BooksSearchResponse> SearchBooksAsync(BooksSearchRequest searchRequest);
     }
 }

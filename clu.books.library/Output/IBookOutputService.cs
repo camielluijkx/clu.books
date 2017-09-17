@@ -1,4 +1,5 @@
-﻿using clu.books.library.model;
+﻿
+using clu.books.library.dto;
 
 namespace clu.books.library.output
 {

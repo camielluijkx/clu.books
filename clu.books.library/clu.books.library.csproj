@@ -33,6 +33,10 @@
     <DocumentationFile>bin\Release\clu.books.library.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Apis, Version=1.29.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.29.1\lib\net45\Google.Apis.dll</HintPath>
       <Private>True</Private>
@@ -84,6 +88,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
       <Private>True</Private>
@@ -102,7 +107,15 @@
     <Compile Include="Dto\Books.cs" />
     <Compile Include="Dto\Book.cs" />
     <Compile Include="Ioc\UnityResolver.cs" />
-    <Compile Include="Mapping\ModelToDtoMapper.cs" />
+    <Compile Include="Mapping\IObjectMapper.cs" />
+    <Compile Include="Mapping\ObjectMapper.cs" />
+    <Compile Include="Search\BooksSearchRequest.cs" />
+    <Compile Include="Search\BookSearchRequest.cs" />
+    <Compile Include="Search\BookSearchResponse.cs" />
+    <Compile Include="Search\BooksSearchResponse.cs" />
+    <Compile Include="Search\BookSearchMapper.cs" />
+    <Compile Include="Search\IBookSearchMapper.cs" />
+    <Compile Include="Search\SearchOption.cs" />
     <Compile Include="Settings\AppSettingNotFoundException.cs" />
     <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Model\Book.cs" />

@@ -20,6 +20,8 @@ namespace clu.books.library.model
 
         public string LanguageCode => volume?.VolumeInfo?.Language.ToUpper();
 
+        public string Description => volume?.VolumeInfo?.Description;
+
         public Book(Volume volume, int index = 1)
         {
             this.volume = volume;

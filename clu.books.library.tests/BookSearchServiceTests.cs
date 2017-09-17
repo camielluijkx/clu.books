@@ -1,9 +1,9 @@
 ﻿using Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
-using clu.books.library.model;
 using clu.books.library.search;
 using clu.books.library.settings;
+using clu.books.library.Search;
 
 namespace clu.books.library.tests
 {
@@ -11,6 +11,8 @@ namespace clu.books.library.tests
     public class BookSearchServiceTests
     {
         private Mock<IConfigurationSettings> configurationSettingsMock;
+
+        private IBookSearchMapper bookSearchMapper;
 
         private BookSearchService objectUnderTest;
 
@@ -31,17 +33,32 @@ namespace clu.books.library.tests
                 .Setup(p => p.PreferredLanguage)
                 .Returns("EN");
 
-            objectUnderTest = new BookSearchService(configurationSettingsMock.Object);
+            bookSearchMapper = new BookSearchMapper();
+            bookSearchMapper.Configure();
+
+            objectUnderTest = new BookSearchService(configurationSettingsMock.Object, bookSearchMapper);
         }
 
         [TestMethod]
-        public async Task SearchBookByIsbn_ExistingIsbnNumber_ReturnsVolume()
+        public async Task SearchBookByIsbn_ExistingIsbnNumber_ReturnsBestMatch()
         {
             string isbn = "9781876175702";
-            Book book = await objectUnderTest.SearchBookByIsbnAsync(isbn);
+            BookSearchRequest searchRequest = new BookSearchRequest(isbn, SearchOption.ByIsn);
+            BookSearchResponse searchResponse = await objectUnderTest.SearchBookAsync(searchRequest);
 
-            Assert.IsNotNull(book);
-            Assert.AreEqual("1) The motorcycle diaries - Ernesto Guevara - 2003 (EN)", book.ToString());
+            Assert.IsNotNull(searchResponse.Book);
+            Assert.AreEqual("1) The motorcycle diaries - Ernesto Guevara - 2003 (EN)", searchResponse.Book.Information);
+        }
+
+        [TestMethod]
+        public async Task SearchBooksByAuthor_ExistingAuthor_ReturnsMultipleBooks()
+        {
+            string isbn = "Stephen King";
+            BooksSearchRequest searchRequest = new BooksSearchRequest(isbn, SearchOption.ByAuthor);
+            BooksSearchResponse searchResponse = await objectUnderTest.SearchBooksAsync(searchRequest);
+
+            Assert.IsNotNull(searchResponse.Books);
+            Assert.IsTrue(searchResponse.Books.Count > 1);
         }
     }
 }

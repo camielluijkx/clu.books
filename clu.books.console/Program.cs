@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
-using clu.books.library.model;
 using clu.books.library.output;
 using clu.books.library.search;
 using clu.books.library.settings;
+using clu.books.library.Search;
 
 namespace clu.books.console
 {
     class Program
     {
-        private static readonly IConfigurationSettings configurationSettings = new ConfigurationSettings();
+        private static IConfigurationSettings configurationSettings;
 
-        private static readonly IBookSearchService bookSearchService = new BookSearchService(configurationSettings);
-        private static readonly IBookOutputService bookOutputService = new BookOutputService(configurationSettings);
+        private static IBookSearchMapper bookSearchMapper;
+        private static IBookSearchService bookSearchService;
+        private static IBookOutputService bookOutputService;
 
         private static void Initialize()
         {
@@ -56,17 +57,19 @@ namespace clu.books.console
             Console.WriteLine("");
             Console.WriteLine("Please enter ISBN, or part of it (example: 9781876175702)");
             string isbn = Console.ReadLine();
-            Book book = await bookSearchService.SearchBookByIsbnAsync(isbn);
-            bookOutputService.LogBookInformation(book);
+            BookSearchRequest searchRequest = new BookSearchRequest(isbn, SearchOption.ByIsn);
+            BookSearchResponse searchResponse = await bookSearchService.SearchBookAsync(searchRequest);
+            bookOutputService.LogBookInformation(searchResponse.Book);
         }
 
         private static async Task SearchBooksByIsbnAsync()
         {
             Console.WriteLine("");
             Console.WriteLine("Please enter ISBN, or part of it (example: 9781876175702)");
-            string isbnNumber = Console.ReadLine();
-            Books books = await bookSearchService.SearchBooksByIsbnAsync(isbnNumber);
-            bookOutputService.LogBooksInformation(books);
+            string isbn = Console.ReadLine();
+            BooksSearchRequest searchRequest = new BooksSearchRequest(isbn, SearchOption.ByIsn);
+            BooksSearchResponse searchResponse = await bookSearchService.SearchBooksAsync(searchRequest);
+            bookOutputService.LogBooksInformation(searchResponse.Books);
         }
 
         private static async Task SearchBooksByAuthorAsync()
@@ -74,8 +77,9 @@ namespace clu.books.console
             Console.WriteLine("");
             Console.WriteLine("Please enter author, or part of it (example: Che Guevara)");
             string author = Console.ReadLine();
-            Books books = await bookSearchService.SearchBooksByAuthorAsync(author);
-            bookOutputService.LogBooksInformation(books);
+            BooksSearchRequest searchRequest = new BooksSearchRequest(author, SearchOption.ByAuthor);
+            BooksSearchResponse searchResponse = await bookSearchService.SearchBooksAsync(searchRequest);
+            bookOutputService.LogBooksInformation(searchResponse.Books);
         }
 
         private static async Task SearchBooksByTitleAsync()
@@ -83,8 +87,9 @@ namespace clu.books.console
             Console.WriteLine("");
             Console.WriteLine("Please enter title, or part of it (example: The Motorcycle Diaries)");
             string title = Console.ReadLine();
-            Books books = await bookSearchService.SearchBooksByTitleAsync(title);
-            bookOutputService.LogBooksInformation(books);
+            BooksSearchRequest searchRequest = new BooksSearchRequest(title, SearchOption.ByTitle);
+            BooksSearchResponse searchResponse = await bookSearchService.SearchBooksAsync(searchRequest);
+            bookOutputService.LogBooksInformation(searchResponse.Books);
         }
 
         private static async Task SearchBooksByAnythingAsync()
@@ -92,8 +97,9 @@ namespace clu.books.console
             Console.WriteLine("");
             Console.WriteLine("Please enter anything, or part of it (example: Diary of Che)");
             string anything = Console.ReadLine();
-            Books books = await bookSearchService.SearchBooksByAnythingAsync(anything);
-            bookOutputService.LogBooksInformation(books);
+            BooksSearchRequest searchRequest = new BooksSearchRequest(anything, SearchOption.ByAnything);
+            BooksSearchResponse searchResponse = await bookSearchService.SearchBooksAsync(searchRequest);
+            bookOutputService.LogBooksInformation(searchResponse.Books);
         }
 
         private static void ShowMenu()
@@ -147,6 +153,14 @@ namespace clu.books.console
         {
             try
             {
+                configurationSettings = new ConfigurationSettings();
+
+                bookSearchMapper = new BookSearchMapper();
+                bookSearchMapper.Configure();
+
+                bookSearchService = new BookSearchService(configurationSettings, bookSearchMapper);
+                bookOutputService = new BookOutputService(configurationSettings);
+
                 Initialize();
                 ShowMenu();
             }

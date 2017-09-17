@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 using System.Web.Http.Results;
-using clu.books.library.Mapping;
 using clu.books.library.search;
 using clu.books.library.settings;
+using clu.books.library.Search;
 using Swashbuckle.Swagger.Annotations;
-using model = clu.books.library.model;
-using dto = clu.books.library.dto;
 
 namespace clu.books.web.api.Controllers
 {
@@ -22,43 +18,16 @@ namespace clu.books.web.api.Controllers
         private readonly IConfigurationSettings configurationSettings;
 
         private readonly IBookSearchService bookSearchService;
+        private readonly IBookSearchMapper bookSearchMapper;
 
         public BookSearchController()
         {
             configurationSettings = new ConfigurationSettings();
-            bookSearchService = new BookSearchService(configurationSettings);
-        }
 
-        /// <summary>
-        /// Collection of books returned by search.
-        /// </summary>
-        public class BooksSearchResponse
-        {
-            public string SearchTerm { get; set; }
+            bookSearchMapper = new BookSearchMapper();
+            bookSearchMapper.Configure();
 
-            public dto.Books Books { get; set; }
-
-            public BooksSearchResponse(string searchTerm, dto.Books books)
-            {
-                SearchTerm = searchTerm;
-                Books = books;
-            }
-        }
-
-        /// <summary>
-        /// Book returned by search.
-        /// </summary>
-        public class BookSearchResponse
-        {
-            public string SearchTerm { get; set; }
-
-            public dto.Book Book { get; set; }
-
-            public BookSearchResponse(string searchTerm, dto.Book book)
-            {
-                SearchTerm = searchTerm;
-                Book = book;
-            }
+            bookSearchService = new BookSearchService(configurationSettings, bookSearchMapper);
         }
 
         /// <summary>
@@ -77,9 +46,8 @@ namespace clu.books.web.api.Controllers
         {
             try
             {
-                model.Books books = await bookSearchService.SearchBooksByAuthorAsync(author);
-
-                BooksSearchResponse searchResponse = new BooksSearchResponse(author, books.ToDto());
+                BooksSearchRequest searchRequest = new BooksSearchRequest(author, SearchOption.ByAuthor);
+                BooksSearchResponse searchResponse = await bookSearchService.SearchBooksAsync(searchRequest);
 
                 return Ok(searchResponse);
             }
@@ -105,9 +73,8 @@ namespace clu.books.web.api.Controllers
         {
             try
             {
-                model.Books books = await bookSearchService.SearchBooksByAnythingAsync(anything);
-
-                BooksSearchResponse searchResponse = new BooksSearchResponse(anything, books.ToDto());
+                BooksSearchRequest searchRequest = new BooksSearchRequest(anything, SearchOption.ByAnything);
+                BooksSearchResponse searchResponse = await bookSearchService.SearchBooksAsync(searchRequest);
 
                 return Ok(searchResponse);
             }
@@ -133,9 +100,8 @@ namespace clu.books.web.api.Controllers
         {
             try
             {
-                model.Book book = await bookSearchService.SearchBookByIsbnAsync(isbn);
-
-                BookSearchResponse searchResponse = new BookSearchResponse(isbn, book.ToDto());
+                BookSearchRequest searchRequest = new BookSearchRequest(isbn, SearchOption.ByIsn);
+                BookSearchResponse searchResponse = await bookSearchService.SearchBookAsync(searchRequest);
 
                 return Ok(searchResponse);
             }

@@ -1,9 +1,9 @@
 ﻿using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 using System.Web.Http;
 using clu.books.library.Ioc;
 using clu.books.library.search;
 using clu.books.library.settings;
+using clu.books.library.Search;
 using Microsoft.Practices.Unity;
 
 namespace clu.books.web.api
@@ -15,6 +15,7 @@ namespace clu.books.web.api
             UnityContainer container = new UnityContainer();
             container.RegisterType<IConfigurationSettings, ConfigurationSettings>(new HierarchicalLifetimeManager());
             container.RegisterType<IBookSearchService, BookSearchService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IBookSearchMapper, BookSearchMapper>(new HierarchicalLifetimeManager());
 
             config.DependencyResolver = new UnityResolver(container);
 
