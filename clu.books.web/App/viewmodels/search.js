@@ -16,22 +16,18 @@
 
             var self = this;
 
-            var defaultBook = {
-                index: 1,
-                author: "Ernesto Guevara",
-                title: "The motorcycle diaries",
-                publishedDate: "2003",
-                language: "EN",
-                description: null
-            };
-            defaultBook.information = ko.computed(function () {
-                return defaultBook.index + ') ' + defaultBook.title + ' - ' + defaultBook.author + ' - ' + defaultBook.publishedDate + ' (' + defaultBook.languageCode + ')';
-            });
-            //self.books.push(defaultBook);
-
-            return http.jsonp('http://localhost/clu.books.web.api/Search/Anything/test', { maxResults: 40 }, 'jsoncallback')
-                .then(function (response) {
+            return http.get('http://localhost/clu.books.web.api/Search/Anything/test', { maxResults: 40 }, {}).then(
+                function (response) {
+                    var books = response.books;
+                    books.forEach(function(book) {
+                        book.information = ko.computed(function () {
+                            return book.index + ') ' + book.title + ' - ' + book.author + ' - ' + book.publishedDate + ' (' + book.languageCode + ')';
+                        });
+                    });
                     self.books(response.books);
+                },
+                function(error) {
+                    alert(error);
                 });
         },
         select: function (item) {
