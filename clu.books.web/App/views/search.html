@@ -1,5 +1,11 @@
 ﻿<section>
     <h2 data-bind="text: displayName"></h2>
+
+    <div>
+        <input data-bind="textInput: searchTerm" />
+        <button data-bind="click: search">Search</button>
+    </div>
+
     <table>
         <thead>
             <tr>

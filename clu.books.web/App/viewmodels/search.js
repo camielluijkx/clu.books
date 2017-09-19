@@ -4,9 +4,40 @@
     //If you wish to be able to create multiple instances, instead export a function.
     //See the "welcome" module for an example of function export.
 
+    var books = ko.observableArray([]);
+
+    var searchTerm = ko.observable('');
+
+    var search = function () {
+
+        var searchTerm = this.searchTerm();
+
+        if (!searchTerm) {
+            return;
+        }
+
+        var self = this;
+
+        return http.get('http://localhost/clu.books.web.api/Search/Anything/' + searchTerm, { maxResults: 40 }, {}).then(
+            function (response) {
+                var books = response.books;
+                books.forEach(function (book) {
+                    book.information = ko.computed(function () {
+                        return book.index + ') ' + book.title + ' - ' + book.author + ' - ' + book.publishedDate + ' (' + book.languageCode + ')';
+                    });
+                });
+                self.books(response.books);
+            },
+            function (error) {
+                alert(error);
+            });
+    }
+
     return {
         displayName: 'Search',
-        books: ko.observableArray([]),
+        searchTerm: searchTerm,
+        search: search,
+        books: books,
         activate: function () {
 
             //the router's activator calls this function and waits for it to complete before proceeding
@@ -14,21 +45,7 @@
                 return;
             }
 
-            var self = this;
-
-            return http.get('http://localhost/clu.books.web.api/Search/Anything/test', { maxResults: 40 }, {}).then(
-                function (response) {
-                    var books = response.books;
-                    books.forEach(function(book) {
-                        book.information = ko.computed(function () {
-                            return book.index + ') ' + book.title + ' - ' + book.author + ' - ' + book.publishedDate + ' (' + book.languageCode + ')';
-                        });
-                    });
-                    self.books(response.books);
-                },
-                function(error) {
-                    alert(error);
-                });
+            this.search();
         },
         select: function (item) {
             //the app model allows easy display of modal dialogs by passing a view model
