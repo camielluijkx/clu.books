@@ -15,5 +15,7 @@
         public int MaxSearchResults => AppSettings.Get<int>("MaxSearchResults");
 
         public string PreferredLanguage => AppSettings.Get<string>("PreferredLanguage");
+
+        public bool StubSearchResults => AppSettings.Get<bool>("StubSearchResults");
     }
 }

@@ -15,6 +15,7 @@ namespace clu.books.web.api
             UnityContainer container = new UnityContainer();
             container.RegisterType<IConfigurationSettings, ConfigurationSettings>(new HierarchicalLifetimeManager());
             container.RegisterType<IBookSearchService, BookSearchService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IBookSearchService, BookSearchServiceStub>(new HierarchicalLifetimeManager());
             container.RegisterType<IBookSearchMapper, BookSearchMapper>(new HierarchicalLifetimeManager());
 
             config.DependencyResolver = new UnityResolver(container);

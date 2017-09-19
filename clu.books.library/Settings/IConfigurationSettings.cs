@@ -15,5 +15,7 @@
         int MaxSearchResults { get; }
 
         string PreferredLanguage { get; }
+
+        bool StubSearchResults { get; }
     }
 }

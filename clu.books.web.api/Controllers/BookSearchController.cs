@@ -27,7 +27,14 @@ namespace clu.books.web.api.controllers
             bookSearchMapper = new BookSearchMapper();
             bookSearchMapper.Configure();
 
-            bookSearchService = new BookSearchService(configurationSettings, bookSearchMapper);
+            if (configurationSettings.StubSearchResults)
+            {
+                bookSearchService = new BookSearchServiceStub(bookSearchMapper);
+            }
+            else
+            {
+                bookSearchService = new BookSearchService(configurationSettings, bookSearchMapper);
+            }
         }
 
         /// <summary>

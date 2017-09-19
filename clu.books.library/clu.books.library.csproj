@@ -109,6 +109,7 @@
     <Compile Include="Ioc\UnityResolver.cs" />
     <Compile Include="Mapping\IObjectMapper.cs" />
     <Compile Include="Mapping\ObjectMapper.cs" />
+    <Compile Include="Search\BookSearchServiceStub.cs" />
     <Compile Include="Search\BooksSearchRequest.cs" />
     <Compile Include="Search\BookSearchRequest.cs" />
     <Compile Include="Search\BookSearchResponse.cs" />
