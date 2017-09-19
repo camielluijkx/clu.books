@@ -8,7 +8,7 @@ using clu.books.library.settings;
 using clu.books.library.Search;
 using Swashbuckle.Swagger.Annotations;
 
-namespace clu.books.web.api.Controllers
+namespace clu.books.web.api.controllers
 {
     [AllowAnonymous]
     [BooksModelBinding]

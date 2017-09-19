@@ -1,4 +1,4 @@
-@using System.Web.Optimization
+﻿@using System.Web.Optimization
 @{
     Layout = null;
 }
@@ -35,6 +35,6 @@
         </div>
         
         @Scripts.Render("~/Scripts/vendor")
-        <script type="text/javascript" src="~/Scripts/require.js" data-main="/App/main"></script>
+        <script type="text/javascript" src="~/Scripts/require.js" data-main="@Url.Content("~/App/main")"></script>
     </body>
 </html>

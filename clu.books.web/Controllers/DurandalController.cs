@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 
-namespace clu.books.web.Controllers
+namespace clu.books.web.controllers
 {
     public class DurandalController : Controller
     {

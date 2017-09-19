@@ -1,11 +1,10 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
 using clu.books.library.api;
 
-namespace clu.books.web.api.Controllers
+namespace clu.books.web.api.controllers
 {
     [AllowAnonymous]
     [RoutePrefix("")]
