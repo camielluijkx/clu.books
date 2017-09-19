@@ -17,5 +17,7 @@
         public string PreferredLanguage => AppSettings.Get<string>("PreferredLanguage");
 
         public bool StubSearchResults => AppSettings.Get<bool>("StubSearchResults");
+
+        public string StubFileForSearchResults => AppSettings.Get<string>("StubFileForSearchResults");
     }
 }

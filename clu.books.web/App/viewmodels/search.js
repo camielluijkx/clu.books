@@ -5,20 +5,36 @@
     //See the "welcome" module for an example of function export.
 
     return {
-        displayName: 'Flickr',
-        images: ko.observableArray([]),
+        displayName: 'Search',
+        books: ko.observableArray([]),
         activate: function () {
+
             //the router's activator calls this function and waits for it to complete before proceeding
-            if (this.images().length > 0) {
+            if (this.books().length > 0) {
                 return;
             }
 
-            var that = this;
-            return http.jsonp('http://api.flickr.com/services/feeds/photos_public.gne', { tags: 'mount ranier', tagmode: 'any', format: 'json' }, 'jsoncallback').then(function(response) {
-                that.images(response.items);
+            var self = this;
+
+            var defaultBook = {
+                index: 1,
+                author: "Ernesto Guevara",
+                title: "The motorcycle diaries",
+                publishedDate: "2003",
+                language: "EN",
+                description: null
+            };
+            defaultBook.information = ko.computed(function () {
+                return defaultBook.index + ') ' + defaultBook.title + ' - ' + defaultBook.author + ' - ' + defaultBook.publishedDate + ' (' + defaultBook.languageCode + ')';
             });
+            //self.books.push(defaultBook);
+
+            return http.jsonp('http://localhost/clu.books.web.api/Search/Anything/test', { maxResults: 40 }, 'jsoncallback')
+                .then(function (response) {
+                    self.books(response.books);
+                });
         },
-        select: function(item) {
+        select: function (item) {
             //the app model allows easy display of modal dialogs by passing a view model
             //views are usually located by convention, but you an specify it as well with viewUrl
             item.viewUrl = 'views/detail';

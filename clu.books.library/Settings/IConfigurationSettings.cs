@@ -17,5 +17,7 @@
         string PreferredLanguage { get; }
 
         bool StubSearchResults { get; }
+
+        string StubFileForSearchResults { get; }
     }
 }

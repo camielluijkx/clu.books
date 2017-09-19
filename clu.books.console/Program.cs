@@ -158,9 +158,9 @@ namespace clu.books.console
                 bookSearchMapper = new BookSearchMapper();
                 bookSearchMapper.Configure();
 
-                if (configurationSettings.StubSearchResults)
+                if (configurationSettings.StubSearchResults) // [TODO] apply factory pattern
                 {
-                    bookSearchService = new BookSearchServiceStub(bookSearchMapper);
+                    bookSearchService = new BookSearchServiceStub(configurationSettings, bookSearchMapper);
                 }
                 else
                 {
