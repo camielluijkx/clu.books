@@ -29,7 +29,7 @@
                 self.books(response.books);
             },
             function (error) {
-                alert(error);
+                alert(error.responseText); // [TODO] proper error handling
             });
     }
 

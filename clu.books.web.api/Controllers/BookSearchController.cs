@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
+using clu.books.library.Logging;
 using clu.books.library.search;
 using clu.books.library.settings;
 using clu.books.library.Search;
@@ -20,6 +21,8 @@ namespace clu.books.web.api.controllers
         private readonly IBookSearchService bookSearchService;
         private readonly IBookSearchMapper bookSearchMapper;
 
+        private readonly ILogger logger;
+
         public BookSearchController()
         {
             configurationSettings = new ConfigurationSettings();
@@ -35,6 +38,8 @@ namespace clu.books.web.api.controllers
             {
                 bookSearchService = new BookSearchService(configurationSettings, bookSearchMapper);
             }
+
+            logger = new Logger(configurationSettings);
         }
 
         /// <summary>
@@ -53,6 +58,7 @@ namespace clu.books.web.api.controllers
         {
             try
             {
+                await logger.LogInfoAsync($"Search book by author: {author}.");
                 BooksSearchRequest searchRequest = new BooksSearchRequest(author, SearchOption.ByAuthor);
                 BooksSearchResponse searchResponse = await bookSearchService.SearchBooksAsync(searchRequest);
 
@@ -60,6 +66,7 @@ namespace clu.books.web.api.controllers
             }
             catch (Exception ex)
             {
+                await logger.LogExceptionAsync(ex);
                 return InternalServerError(ex);
             }
         }
@@ -80,6 +87,7 @@ namespace clu.books.web.api.controllers
         {
             try
             {
+                await logger.LogInfoAsync($"Search book by anything: {anything}.");
                 BooksSearchRequest searchRequest = new BooksSearchRequest(anything, SearchOption.ByAnything);
                 BooksSearchResponse searchResponse = await bookSearchService.SearchBooksAsync(searchRequest);
 
@@ -87,6 +95,7 @@ namespace clu.books.web.api.controllers
             }
             catch (Exception ex)
             {
+                await logger.LogExceptionAsync(ex);
                 return InternalServerError(ex);
             }
         }
@@ -107,6 +116,7 @@ namespace clu.books.web.api.controllers
         {
             try
             {
+                await logger.LogInfoAsync($"Search book by ISBN: {isbn}.");
                 BookSearchRequest searchRequest = new BookSearchRequest(isbn, SearchOption.ByIsn);
                 BookSearchResponse searchResponse = await bookSearchService.SearchBookAsync(searchRequest);
 
@@ -114,6 +124,7 @@ namespace clu.books.web.api.controllers
             }
             catch (Exception ex)
             {
+                await logger.LogExceptionAsync(ex);
                 return InternalServerError(ex);
             }
         }

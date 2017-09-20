@@ -19,5 +19,7 @@
         public bool StubSearchResults => AppSettings.Get<bool>("StubSearchResults");
 
         public string StubFileForSearchResults => AppSettings.Get<string>("StubFileForSearchResults");
+
+        public string ServiceAccountPrivateKeyFile => AppSettings.Get<string>("ServiceAccountPrivateKeyFile");
     }
 }

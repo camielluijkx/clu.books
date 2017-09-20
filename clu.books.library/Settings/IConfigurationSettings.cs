@@ -19,5 +19,7 @@
         bool StubSearchResults { get; }
 
         string StubFileForSearchResults { get; }
+
+        string ServiceAccountPrivateKeyFile { get; }
     }
 }
