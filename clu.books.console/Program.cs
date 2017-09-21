@@ -57,7 +57,7 @@ namespace clu.books.console
             Console.WriteLine("");
             Console.WriteLine("Please enter ISBN, or part of it (example: 9781876175702)");
             string isbn = Console.ReadLine();
-            BookSearchRequest searchRequest = new BookSearchRequest(isbn, SearchOption.ByIsn);
+            BookSearchRequest searchRequest = new BookSearchRequest(isbn, SearchOption.ByIsbn);
             BookSearchResponse searchResponse = await bookSearchService.SearchBookAsync(searchRequest);
             bookOutputService.LogBookInformation(searchResponse.Book);
         }
@@ -67,7 +67,7 @@ namespace clu.books.console
             Console.WriteLine("");
             Console.WriteLine("Please enter ISBN, or part of it (example: 9781876175702)");
             string isbn = Console.ReadLine();
-            BooksSearchRequest searchRequest = new BooksSearchRequest(isbn, SearchOption.ByIsn);
+            BooksSearchRequest searchRequest = new BooksSearchRequest(isbn, SearchOption.ByIsbn);
             BooksSearchResponse searchResponse = await bookSearchService.SearchBooksAsync(searchRequest);
             bookOutputService.LogBooksInformation(searchResponse.Books);
         }

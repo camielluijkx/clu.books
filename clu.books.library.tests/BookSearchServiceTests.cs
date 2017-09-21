@@ -43,7 +43,7 @@ namespace clu.books.library.tests
         public async Task SearchBookByIsbn_ExistingIsbnNumber_ReturnsBestMatch()
         {
             string isbn = "9781876175702";
-            BookSearchRequest searchRequest = new BookSearchRequest(isbn, SearchOption.ByIsn);
+            BookSearchRequest searchRequest = new BookSearchRequest(isbn, SearchOption.ByIsbn);
             BookSearchResponse searchResponse = await objectUnderTest.SearchBookAsync(searchRequest);
 
             Assert.IsNotNull(searchResponse.Book);

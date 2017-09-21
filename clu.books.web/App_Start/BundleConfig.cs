@@ -3,7 +3,7 @@ using System.Web.Optimization;
 
 namespace clu.books.web
 {
-    public class DurandalBundleConfig
+    public class BundleConfig
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -15,6 +15,7 @@ namespace clu.books.web
                   .Include("~/Scripts/jquery-{version}.js")
                   .Include("~/Scripts/bootstrap.js")
                   .Include("~/Scripts/knockout-{version}.js")
+                  .Include("~/Scripts/toastr.js")
               );
 
             bundles.Add(
@@ -24,6 +25,8 @@ namespace clu.books.web
                 .Include("~/Content/font-awesome.min.css")
                 .Include("~/Content/durandal.css")
                 .Include("~/Content/starterkit.css")
+                .Include("~/Content/toastr.min.css")
+                .Include("~/Content/app.css")
               );
         }
 
@@ -31,7 +34,7 @@ namespace clu.books.web
         {
             if (ignoreList == null)
             {
-                throw new ArgumentNullException("ignoreList");
+                throw new ArgumentNullException(nameof(ignoreList));
             }
 
             ignoreList.Ignore("*.intellisense.js");

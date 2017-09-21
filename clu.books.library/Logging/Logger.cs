@@ -51,7 +51,7 @@ namespace clu.books.library.Logging
             // This sample uses resource type 'global' causing log entries to appear in the
             // "Global" resource list of the Developers Console Logs Viewer:
             //  https://console.cloud.google.com/logs/viewer
-            MonitoredResource resource = new MonitoredResource {Type = "global"};
+            MonitoredResource resource = new MonitoredResource { Type = "global" };
 
             // Add log entry to collection for writing. Multiple log entries can be added.
             IEnumerable<LogEntry> logEntries = new[] { logEntry };

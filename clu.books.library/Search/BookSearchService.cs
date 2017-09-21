@@ -60,7 +60,7 @@ namespace clu.books.library.search
                 case SearchOption.ByAuthor:
                     searchTerm = $"inauthor:{searchValue}";
                     break;
-                case SearchOption.ByIsn:
+                case SearchOption.ByIsbn:
                     searchTerm = $"isbn:{searchValue}";
                     break;
                 case SearchOption.ByTitle:

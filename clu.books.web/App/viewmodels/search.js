@@ -1,4 +1,4 @@
-﻿define(['plugins/http', 'durandal/app', 'knockout'], function (http, app, ko) {
+﻿define(['plugins/http', 'durandal/app', 'knockout', 'services/logger'], function (http, app, ko, logger) {
     //Note: This module exports an object.
     //That means that every module that "requires" it will get the same object instance.
     //If you wish to be able to create multiple instances, instead export a function.
@@ -18,7 +18,7 @@
 
         var self = this;
 
-        return http.get('http://localhost/clu.books.web.api/Search/Anything/' + searchTerm, { maxResults: 40 }, {}).then(
+        return http.get('http://localhost/clu.books.web.api/Search/Books/Anything/' + searchTerm, { maxResults: 40 }, {}).then(
             function (response) {
                 var books = response.books;
                 books.forEach(function (book) {
@@ -27,9 +27,10 @@
                     });
                 });
                 self.books(response.books);
+                logger.logSuccess('Success searching for books by ' + searchTerm + '.', books, 'Search', true);
             },
             function (error) {
-                alert(error.responseText); // [TODO] proper error handling
+                logger.logError('Error searching for books by ' + searchTerm + '.', error, 'Search', true);
             });
     }
 

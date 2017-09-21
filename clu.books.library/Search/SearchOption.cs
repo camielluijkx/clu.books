@@ -18,7 +18,7 @@
         /// <summary>
         /// Search by ISBN.
         /// </summary>
-        ByIsn,
+        ByIsbn,
 
         /// <summary>
         /// Search by title.
