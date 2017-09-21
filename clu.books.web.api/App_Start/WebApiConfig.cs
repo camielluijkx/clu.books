@@ -1,10 +1,6 @@
 ﻿using System.Net.Http.Formatting;
 using System.Web.Http;
 using clu.books.library.Ioc;
-using clu.books.library.Logging;
-using clu.books.library.search;
-using clu.books.library.settings;
-using clu.books.library.Search;
 using Microsoft.Practices.Unity;
 
 namespace clu.books.web.api
@@ -13,12 +9,7 @@ namespace clu.books.web.api
     {
         public static void Register(HttpConfiguration config)
         {
-            UnityContainer container = new UnityContainer(); // [TODO] improve ioc configuration
-            container.RegisterType<IConfigurationSettings, ConfigurationSettings>(new HierarchicalLifetimeManager());
-            container.RegisterType<IBookSearchService, BookSearchService>(new HierarchicalLifetimeManager());
-            container.RegisterType<IBookSearchService, BookSearchServiceStub>(new HierarchicalLifetimeManager());
-            container.RegisterType<IBookSearchMapper, BookSearchMapper>(new HierarchicalLifetimeManager());
-            container.RegisterType<ILogger, Logger>(new HierarchicalLifetimeManager());
+            UnityContainer container = new UnityContainer();
 
             config.DependencyResolver = new UnityResolver(container);
 

@@ -12,7 +12,7 @@ using Google.Apis.Services;
 
 namespace clu.books.library.search
 {
-    public class BookSearchService : IBookSearchService
+    public class GoogleBookSearchService : IGoogleBookSearchService
     {
         private readonly string apiKey;
 
@@ -27,7 +27,7 @@ namespace clu.books.library.search
 
         private readonly IBookSearchMapper bookSearchMapper;
 
-        public BookSearchService(IConfigurationSettings configurationSettings, IBookSearchMapper bookSearchMapper)
+        public GoogleBookSearchService(IConfigurationSettings configurationSettings, IBookSearchMapper bookSearchMapper)
         {
             apiKey = configurationSettings.GoogleBooksPublicApiKey;
 
@@ -67,6 +67,8 @@ namespace clu.books.library.search
                     searchTerm = $"intitle:{searchValue}";
                     break;
             }
+
+            searchTerm = searchTerm.Replace(" ", "%20");
 
             VolumesResource.ListRequest listRequest = bookService.Volumes.List(searchTerm);
             listRequest.OrderBy = orderBy;

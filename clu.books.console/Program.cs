@@ -11,8 +11,10 @@ namespace clu.books.console
     {
         private static IConfigurationSettings configurationSettings;
 
-        private static IBookSearchMapper bookSearchMapper;
+        private static IBookSearchServiceFactory bookSearchServiceFactory;
         private static IBookSearchService bookSearchService;
+        private static IBookSearchMapper bookSearchMapper;
+
         private static IBookOutputService bookOutputService;
 
         private static void Initialize()
@@ -158,14 +160,8 @@ namespace clu.books.console
                 bookSearchMapper = new BookSearchMapper();
                 bookSearchMapper.Configure();
 
-                if (configurationSettings.StubSearchResults) // [TODO] apply factory pattern
-                {
-                    bookSearchService = new BookSearchServiceStub(configurationSettings, bookSearchMapper);
-                }
-                else
-                {
-                    bookSearchService = new BookSearchService(configurationSettings, bookSearchMapper);
-                }
+                bookSearchServiceFactory = new BookSearchServiceFactory(configurationSettings, bookSearchMapper);
+                bookSearchService = bookSearchServiceFactory.Create();
 
                 bookOutputService = new BookOutputService(configurationSettings);
 

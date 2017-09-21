@@ -5,20 +5,19 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using clu.books.library.model;
-using clu.books.library.search;
 using clu.books.library.settings;
 using Google.Apis.Books.v1.Data;
 using Newtonsoft.Json;
 
 namespace clu.books.library.Search
 {
-    public class BookSearchServiceStub : IBookSearchService
+    public class StubbedBookSearchService : IStubbedBookSearchService
     {
         private readonly IBookSearchMapper bookSearchMapper;
 
         private readonly string stubFile;
 
-        public BookSearchServiceStub(IConfigurationSettings configurationSettings, IBookSearchMapper bookSearchMapper)
+        public StubbedBookSearchService(IConfigurationSettings configurationSettings, IBookSearchMapper bookSearchMapper)
         {
             this.bookSearchMapper = bookSearchMapper;
 

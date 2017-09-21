@@ -8,13 +8,13 @@ using clu.books.library.Search;
 namespace clu.books.library.tests
 {
     [TestClass]
-    public class BookSearchServiceTests
+    public class GoogleBookSearchServiceTests
     {
         private Mock<IConfigurationSettings> configurationSettingsMock;
 
         private IBookSearchMapper bookSearchMapper;
 
-        private BookSearchService objectUnderTest;
+        private GoogleBookSearchService objectUnderTest;
 
         [TestInitialize]
         public void Initialize()
@@ -36,7 +36,7 @@ namespace clu.books.library.tests
             bookSearchMapper = new BookSearchMapper();
             bookSearchMapper.Configure();
 
-            objectUnderTest = new BookSearchService(configurationSettingsMock.Object, bookSearchMapper);
+            objectUnderTest = new GoogleBookSearchService(configurationSettingsMock.Object, bookSearchMapper);
         }
 
         [TestMethod]

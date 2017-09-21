@@ -18,26 +18,21 @@ namespace clu.books.web.api.controllers
     {
         private readonly IConfigurationSettings configurationSettings;
 
+        private readonly IBookSearchServiceFactory bookSearchServiceFactory;
         private readonly IBookSearchService bookSearchService;
         private readonly IBookSearchMapper bookSearchMapper;
 
         private readonly ILogger logger;
 
-        public BookSearchController()
+        public BookSearchController() // [TODO] improve ioc setup
         {
             configurationSettings = new ConfigurationSettings();
 
             bookSearchMapper = new BookSearchMapper();
             bookSearchMapper.Configure();
 
-            if (configurationSettings.StubSearchResults) // [TODO] apply factory pattern
-            {
-                bookSearchService = new BookSearchServiceStub(configurationSettings, bookSearchMapper);
-            }
-            else
-            {
-                bookSearchService = new BookSearchService(configurationSettings, bookSearchMapper);
-            }
+            bookSearchServiceFactory = new BookSearchServiceFactory(configurationSettings, bookSearchMapper);
+            bookSearchService = bookSearchServiceFactory.Create();
 
             logger = new Logger(configurationSettings);
         }
