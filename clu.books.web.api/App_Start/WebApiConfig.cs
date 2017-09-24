@@ -2,6 +2,7 @@
 using System.Web.Http;
 using clu.books.library.Ioc;
 using Microsoft.Practices.Unity;
+using WebApiThrottle;
 
 namespace clu.books.web.api
 {
@@ -23,6 +24,16 @@ namespace clu.books.web.api
 
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter());
+
+            // Configure request throttling, for options see https://github.com/stefanprodan/WebApiThrottle.
+            config.MessageHandlers.Add(new ThrottlingHandler
+            {
+                Policy = new ThrottlePolicy(perSecond: 1, perMinute: 20, perHour: 200, perDay: 1500, perWeek: 3000)
+                {
+                    IpThrottling = true
+                },
+                Repository = new CacheRepository()
+            });
         }
     }
 }

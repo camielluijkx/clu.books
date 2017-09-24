@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clu.books.web.api", "clu.bo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clu.books.web", "clu.books.web\clu.books.web.csproj", "{4A79AB8A-8BAA-458A-A0ED-0847AE88E382}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clu.books.web.api.tests", "clu.books.web.api.tests\clu.books.web.api.tests.csproj", "{73ABACA4-AB6A-423C-B6FD-4712C215B03F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{4A79AB8A-8BAA-458A-A0ED-0847AE88E382}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A79AB8A-8BAA-458A-A0ED-0847AE88E382}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A79AB8A-8BAA-458A-A0ED-0847AE88E382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73ABACA4-AB6A-423C-B6FD-4712C215B03F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73ABACA4-AB6A-423C-B6FD-4712C215B03F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73ABACA4-AB6A-423C-B6FD-4712C215B03F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73ABACA4-AB6A-423C-B6FD-4712C215B03F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
