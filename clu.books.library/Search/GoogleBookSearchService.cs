@@ -79,6 +79,7 @@ namespace clu.books.library.search
             Volumes volumes = await listRequest.ExecuteAsync();
             volumes?.Items?.RemoveAll(v => !preferredLanguages
                 .Contains(v.VolumeInfo?.Language?.ToUpper()));
+
             return volumes;
         }
 
