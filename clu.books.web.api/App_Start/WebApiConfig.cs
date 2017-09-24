@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Formatting;
+﻿using System.Collections.Generic;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 using clu.books.library.Ioc;
 using Microsoft.Practices.Unity;
@@ -28,9 +29,15 @@ namespace clu.books.web.api
             // Configure request throttling, for options see https://github.com/stefanprodan/WebApiThrottle.
             config.MessageHandlers.Add(new ThrottlingHandler
             {
-                Policy = new ThrottlePolicy(perSecond: 1, perMinute: 20, perHour: 200, perDay: 1500, perWeek: 3000)
+                Policy = new ThrottlePolicy
                 {
-                    IpThrottling = true
+                    IpThrottling = true,
+                    ClientThrottling = true,
+                    EndpointThrottling = true,
+                    EndpointRules = new Dictionary<string, RateLimits>
+                    {
+                        { "api/Search", new RateLimits { PerSecond = 1, PerMinute = 20, PerHour = 200, PerDay = 1500, PerWeek = 3000 } }
+                    }
                 },
                 Repository = new CacheRepository()
             });

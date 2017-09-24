@@ -22,7 +22,7 @@ namespace clu.books.web.api.tests
 
             // Act
             long ticks = DateTime.UtcNow.Ticks;
-            string responseValue = await testClient.RequestAsync($"/Search/Books/Anything/{ticks}");
+            string responseValue = await testClient.RequestAsync($"/Search/Books/Anything/test");
             BooksSearchResponse searchResponse = JsonConvert.DeserializeObject<BooksSearchResponse>(responseValue);
 
             // Assert
