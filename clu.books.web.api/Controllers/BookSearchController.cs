@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
-using clu.books.library.dto;
 using clu.books.library.Logging;
 using clu.books.library.search;
 using clu.books.library.settings;

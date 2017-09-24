@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,7 +16,7 @@ namespace clu.books.web.api.tests
             HttpResponseMessage responseMessage = await client.GetAsync(url);
             if (responseMessage.StatusCode != HttpStatusCode.OK)
             {
-                string message = $"Faile: Received HTTP {responseMessage.StatusCode}";
+                string message = $"Failed: Received HTTP {responseMessage.StatusCode}";
                 throw new ApplicationException(message);
             }
 

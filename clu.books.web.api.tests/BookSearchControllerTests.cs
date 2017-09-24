@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using clu.books.library.Search;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
 namespace clu.books.web.api.tests
 {
@@ -29,7 +27,7 @@ namespace clu.books.web.api.tests
             BooksSearchResponse searchResponse = await testClient.GetAsync<BooksSearchResponse>($"http://localhost/clu.books.web.api/Search/Books/Anything/{anything}");
 
             // Assert
-            Assert.IsNotNull(searchResponse);
+            Assert.IsNotNull(searchResponse.Books);
         }
 
         [TestMethod]
