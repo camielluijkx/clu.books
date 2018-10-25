@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using clu.books.library.Ioc;
+
+using System.Collections.Generic;
 using System.Net.Http.Formatting;
 using System.Web.Http;
-using clu.books.library.Ioc;
-using Microsoft.Practices.Unity;
+
+using Unity;
+
 using WebApiThrottle;
 
 namespace clu.books.web.api
